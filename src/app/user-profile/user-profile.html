@@ -1,1 +1,34 @@
-<p>user-profile works!</p>
+<app-header></app-header>
+<div class="container">
+  <div style="height: 200px;" class="row bg-success"></div>
+  <div style="width: 200px; height: 200px;border-radius: 50%;margin-top: -110px;" class="p-1 shadow d-flex justify-content-center align-items-center">
+    <label for="upload"><img width="170px" height="170px" style="border-radius: 50%;" [src]="userImage()" alt="profile"></label>
+
+    <input (change)="updateProfilePicture($event)" type="file" id="upload" accept="image/*" hidden>
+  </div>
+  <label style="margin-top: -50px;margin-left: 76px;" for="upload" class="btn p-1 bg-white rounded-circle"><i class="fa-solid fa-upload fa-2x text-secondary"></i></label>
+  <h1>{{username}} <i class="fa-solid fa-circle-check text-primary"></i></h1>
+  <p style="text-align: justify;" class="my-3">Passionate home cook who believes great food starts with simple ingredients and a lot of love. I enjoy experimenting with traditional flavors and giving them a modern twist. My recipes are easy to follow, beginner-friendly, and perfect for everyday cooking. From quick breakfasts to comforting dinners, I love sharing dishes that bring people together. Let’s cook, learn, and enjoy good food! 😊🍳</p>
+  <p><span class="fw-semibold">Me 👩‍🍳</span>Cooking is my creative escape. I enjoy trying new ingredients, recreating classic dishes, and sharing easy-to-follow recipes for everyday cooking</p>
+  <p>❤️ <span class="fw-semibold">Favorite Cuisines:</span>Indian,Italian,Continental,Healthy & Quick Meals</p>
+
+<h3 class="fw-semibold">Download Recipes History</h3>
+<div class="row">
+  @if (downloadList().length>0) {
+    @for (recipe of downloadList(); track $index){
+        <div class="col-lg-2">
+        <div routerLink="/recipe/{{recipe.recipeId}}/view" class="p-3">
+          <img class="card-img-top" [src]="recipe.image" alt="related recipe">
+          <div class="card-body">
+            <p class="fw-normal card-title fw-semibold text-center">{{recipe.name}}</p>
+          </div>
+        </div>
+      </div>
+       }
+  }@else {
+    <p class="fw-bolder mt-3 text-primary">No Recipes added yet!!!</p>
+  }
+
+</div>
+</div>
+<app-footer></app-footer>

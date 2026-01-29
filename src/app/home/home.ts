@@ -11,6 +11,7 @@ import { ApiServices } from '../services/api-services';
   styleUrl: './home.css',
 })
 export class Home {
+  feedbacks:any = signal([])
   allrecipes:any = signal([])
   api = inject(ApiServices)
 
@@ -27,4 +28,9 @@ export class Home {
     })
   }
 
+  getFeedbacks(){
+    this.api.getApproveFeedbacksAPI().subscribe((res:any)=>{
+      this.feedbacks.set(res)
+    })
+  }
 }

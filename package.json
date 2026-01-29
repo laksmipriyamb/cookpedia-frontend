@@ -33,6 +33,7 @@
     "jspdf-autotable": "^5.0.7",
     "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^20.0.3",
+    "react-icons": "^5.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
