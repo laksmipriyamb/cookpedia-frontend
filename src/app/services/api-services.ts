@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { RecipeModel } from '../admin/model/recipeModel';
 
 @Injectable({
   providedIn: 'root',
@@ -79,5 +80,30 @@ export class ApiServices {
    //get feebcaks when approved by home page
   getApproveFeedbacksAPI(){
     return this.http.get(`${this.server_url}/feedbacks-approve`)
+  }
+
+  //http://localhost:3000/user-list get by admin when page load
+  getUsersListAPI(){
+    return this.http.get(`${this.server_url}/user-list`,this.appendToken())
+  }
+
+  //http://localhost:3000/downloads get by admin when page load
+  getDownloadListAPI(){
+    return this.http.get(`${this.server_url}/downloads`,this.appendToken())
+  }
+
+  //http://localhost:3000/feedbacks get by admin when page load
+  getFeedbacksListAPI(){
+    return this.http.get(`${this.server_url}/feedbacks`,this.appendToken())
+  }
+
+  //http://localhost:3000/feedbacks/:id update status by admin when page load
+  updateFeedbackStatusAPI(id:string,reqBody:any){
+    return this.http.put(`${this.server_url}/feedbacks/${id}`,reqBody,this.appendToken())
+  }
+
+  //http://localhost:3000/recipes post request by manage recipe component when add btn clicked
+  addRecipeAPI(reqBody:RecipeModel){
+    return this.http.post(`${this.server_url}/recipes`,reqBody,this.appendToken())
   }
 }

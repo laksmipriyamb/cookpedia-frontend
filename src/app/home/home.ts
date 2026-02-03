@@ -17,6 +17,7 @@ export class Home {
 
   ngOnInit(){
     this.getAllRecipes()
+    this.getFeedbacks()
   }
 
   getAllRecipes(){
@@ -31,6 +32,8 @@ export class Home {
   getFeedbacks(){
     this.api.getApproveFeedbacksAPI().subscribe((res:any)=>{
       this.feedbacks.set(res)
+      console.log(this.feedbacks());
+
     })
   }
 }

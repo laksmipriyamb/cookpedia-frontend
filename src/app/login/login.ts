@@ -37,9 +37,11 @@ export class Login {
           sessionStorage.setItem("user", JSON.stringify(res.user))
           alert("User login successfull...")
           this.loginForm.reset()
-          setTimeout(() => {
+          if(res.user.role=="user"){
             this.router.navigateByUrl('/')
-          }, 2000)
+          }else{
+            this.router.navigateByUrl('/admin')
+          }
         },
         error: (reason: any) => {
           alert(reason.error);
