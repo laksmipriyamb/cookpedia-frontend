@@ -7,7 +7,7 @@ import { RecipeModel } from '../admin/model/recipeModel';
 })
 export class ApiServices {
 
-  server_url = "http://localhost:3000"
+  server_url = "https://cookpedia-backend-7uzu.onrender.com"
   http = inject(HttpClient) //HttpClient this is imported in app.config.ts
 
   //api function
@@ -105,5 +105,36 @@ export class ApiServices {
   //http://localhost:3000/recipes post request by manage recipe component when add btn clicked
   addRecipeAPI(reqBody:RecipeModel){
     return this.http.post(`${this.server_url}/recipes`,reqBody,this.appendToken())
+  }
+
+  //http://localhost:3000/recipes/:id post request by manage recipe component when del btn clicked
+  removeRecipeAPI(id:string){
+    return this.http.delete(`${this.server_url}/recipes/${id}`,this.appendToken())
+  }
+
+  //http://localhost:3000/recipes/:id post request by manage recipe component when update btn clicked
+  editRecipeAPI(id:string,reqBody:RecipeModel){
+    return this.http.put(`${this.server_url}/recipes/${id}`,reqBody,this.appendToken())
+  }
+
+  getChartData(){
+    this.getDownloadListAPI().subscribe((res:any)=>{
+      let downloadlistArray:any = []
+      let output:any = {}
+      res.forEach((item:any)=>{
+        let cuisine = item.cuisine
+        let currentCount = item.count
+        if(cuisine in output){
+          output[cuisine] += currentCount
+        }else{
+          output[cuisine] = currentCount
+        }
+      })
+      console.log(output);
+      for(let cuisine in output){
+        downloadlistArray.push({name:cuisine,y:output[cuisine]})
+      }
+      localStorage.setItem("chart",JSON.stringify(downloadlistArray))
+    })
   }
 }
